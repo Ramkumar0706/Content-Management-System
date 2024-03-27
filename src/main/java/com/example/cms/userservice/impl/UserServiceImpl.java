@@ -77,7 +77,16 @@ public class UserServiceImpl implements UserService {
 						.setData(matToResponse(user))))
 				.orElseThrow(()->new UserNotFoundByIdException("User is not Found By Id"));
 	}
-
+	@Override
+	public ResponseEntity<ResponseStructure<UserResponse>> deleteUserById(int userId) {
+	User user = userRepostiory.findById(userId).orElseThrow(()->new UserNotFoundByIdException("user Not found By Id"));
+		user.setDeleted(true);
+		userRepostiory.save(user);
+		return ResponseEntity.ok(response
+						.setStatuscode(HttpStatus.OK.value())
+						.setMessage("User is Found By Id")
+						.setData(matToResponse(user)));
+	}
 	
 	
 
