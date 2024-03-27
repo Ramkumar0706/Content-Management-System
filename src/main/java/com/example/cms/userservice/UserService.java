@@ -8,5 +8,8 @@ import com.example.cms.utility.ResponseStructure;
 
 public interface UserService {
 	public ResponseEntity<ResponseStructure<UserResponse>> userRegistration(UserRequest user);
+	public ResponseEntity<ResponseStructure<UserResponse>> findUserById( int userId);
+
+	
 
 }
