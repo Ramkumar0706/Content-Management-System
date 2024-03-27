@@ -31,7 +31,15 @@ public class UserController {
 	public String test() {
 		return "hello from cms";
 	}
-
+	@GetMapping("/users/{userId}")
+	public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable int  userId){
+		return userService.findUserById(userId);
+	}
+	@DeleteMapping("/users/{userId}")
+	public ResponseEntity<ResponseStructure<UserResponse>> deleteUserById(@PathVariable int  userId){
+		return userService.deleteUserById(userId);
+	}
+	
 	
 	
 }
