@@ -35,6 +35,10 @@ public class UserController {
 	public ResponseEntity<ResponseStructure<UserResponse>> findUserById(@PathVariable int  userId){
 		return userService.findUserById(userId);
 	}
+	@DeleteMapping("/users/{userId}")
+	public ResponseEntity<ResponseStructure<UserResponse>> deleteUserById(@PathVariable int  userId){
+		return userService.deleteUserById(userId);
+	}
 	
 	
 	
