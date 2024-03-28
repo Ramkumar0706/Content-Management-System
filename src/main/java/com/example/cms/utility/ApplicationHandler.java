@@ -28,8 +28,20 @@ public class ApplicationHandler {
 	@ExceptionHandler
 	public ResponseEntity<ErrorStructure<String>> handelerUserNotFoundtById(UserNotFoundByIdException ex)
 	{
-		return errorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), "user is not found by Id");
+		return errorResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "user is not found by Id");
 				
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleBlogNotFoundException(BlogNotFoundException ex){
+		return errorResponse(HttpStatus.NOT_FOUND,ex.getMessage(),"blog is not found by Id");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleTitleEmptyException(TitleEmptyException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"blog title is empty ");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleBlogTitleExistException(BlogTitleAlreadyExistException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"blog title is already in database");	
 	}
 	
 	

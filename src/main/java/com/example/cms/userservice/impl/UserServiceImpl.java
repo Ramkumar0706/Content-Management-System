@@ -4,24 +4,19 @@ package com.example.cms.userservice.impl;
 
 import com.example.cms.exception.*;
 
-import java.util.Optional;
-
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.cms.dto.UserRequest;
-import com.example.cms.dto.UserResponse;
+import com.example.cms.dtoRequest.UserRequest;
+import com.example.cms.dtoResponse.UserResponse;
 import com.example.cms.usermodel.User;
 import com.example.cms.userservice.UserService;
 import com.example.cms.utility.ResponseStructure;
-
-import jakarta.validation.Valid;
-
 import com.example.cms.userrepository.UserRepository;
 import lombok.AllArgsConstructor;
+
 @AllArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,19 +24,16 @@ public class UserServiceImpl implements UserService {
 	private ResponseStructure<UserResponse> response;
 	private PasswordEncoder pass;
 
-
-
 	@Override
 	public ResponseEntity<ResponseStructure<UserResponse>> userRegistration(UserRequest user) {
 		if(userRepostiory.existsByEmail(user.getEmail()))
 			throw new UserAlreadyExistByEmailException("Failed to register user");
 		User saveUser=userRepostiory.save(mapToUser(user));
-		System.out.println(saveUser);
+		//	System.out.println(saveUser);
 		return ResponseEntity.ok(response.setStatuscode(HttpStatus.CREATED.value())
 				.setMessage("user Register successfully")
 				.setData(matToResponse(saveUser)));
 	}
-
 
 	private UserResponse matToResponse(User saveUser) {
 		return UserResponse.builder()
@@ -54,10 +46,9 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-
 	public User mapToUser(UserRequest userRequest) {
 
-		System.out.println(userRequest);
+		//System.out.println(userRequest);
 		//return User.builder().username(userRequest.getUserName()).email(userRequest.getUserEmail()).password(pass.encode(userRequest.getUserPassword())).build();
 		User u= new User();
 		u.setUsername(userRequest.getUsername());
@@ -65,7 +56,6 @@ public class UserServiceImpl implements UserService {
 		u.setEmail(userRequest.getEmail());
 		return u;
 	}
-
 
 	@Override
 	public ResponseEntity<ResponseStructure<UserResponse>> findUserById(int userId) {
@@ -77,20 +67,17 @@ public class UserServiceImpl implements UserService {
 						.setData(matToResponse(user))))
 				.orElseThrow(()->new UserNotFoundByIdException("User is not Found By Id"));
 	}
+
 	@Override
 	public ResponseEntity<ResponseStructure<UserResponse>> deleteUserById(int userId) {
-	User user = userRepostiory.findById(userId).orElseThrow(()->new UserNotFoundByIdException("user Not found By Id"));
+		User user = userRepostiory.findById(userId).orElseThrow(()->new UserNotFoundByIdException("user Not found By Id"));
 		user.setDeleted(true);
 		userRepostiory.save(user);
 		return ResponseEntity.ok(response
-						.setStatuscode(HttpStatus.OK.value())
-						.setMessage("User is Found By Id")
-						.setData(matToResponse(user)));
+				.setStatuscode(HttpStatus.OK.value())
+				.setMessage("User is Found By Id")
+				.setData(matToResponse(user)));
 	}
-	
-	
-
-
 }
 
 

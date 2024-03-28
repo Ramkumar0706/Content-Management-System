@@ -1,4 +1,4 @@
-package com.example.cms.dto;
+package com.example.cms.dtoRequest;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Column;
