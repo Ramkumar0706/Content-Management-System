@@ -1,4 +1,4 @@
-package com.example.cms.dto;
+package com.example.cms.dtoResponse;
 
 import java.time.LocalDateTime;
 
