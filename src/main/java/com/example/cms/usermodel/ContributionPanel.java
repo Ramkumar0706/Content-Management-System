@@ -1,34 +1,27 @@
 package com.example.cms.usermodel;
 
-import java.util.*;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-@Getter
 @Setter
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Blog {
+public class ContributionPanel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int blogId;
-	private String title;
-	private String[] topics;
-	private String about;
+	private int panelId;
+	@ManyToMany
+	private List<User> contributers;
 	
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
-	
-	@OneToOne
-	private ContributionPanel contributerpanel;
-	
+
 }
