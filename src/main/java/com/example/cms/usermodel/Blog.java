@@ -34,5 +34,5 @@ public class Blog {
 	
 	
 	@OneToMany(mappedBy = "blog")
-	private List<BlogPost> blogPost;
+	private List<BlogPost> blogPost =new ArrayList<>();
 }

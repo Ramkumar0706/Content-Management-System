@@ -12,8 +12,5 @@ import com.example.cms.usermodel.User;
 public interface BlogRepository extends JpaRepository<Blog, Integer>  {
 	
 boolean existsByTitle(String titile);
-
-
-
 boolean existsByUserAndContributerpanel(User owner, ContributionPanel panel);
 }

@@ -6,5 +6,8 @@ import com.example.cms.usermodel.ContributionPanel;
 import com.example.cms.usermodel.User;
 
 public interface ContributerRepository  extends JpaRepository<ContributionPanel, Integer>{
-	boolean existsByPanelIdAndContributors(int panelId, User user);
+	
+	
+	
+	boolean existsByPanelIdAndContributers(int panelId, User user);
 }
