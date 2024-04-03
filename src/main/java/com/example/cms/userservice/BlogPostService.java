@@ -12,4 +12,9 @@ public interface BlogPostService {
 	public ResponseEntity<ResponseStructure<BlogPostResponse>> updateDraft(int postId,BlogPostRequest blogPostRequest);
 	
 	public ResponseEntity<ResponseStructure<BlogPostResponse>> deleteBlogPost(int postId);
+	
+	public ResponseEntity<ResponseStructure<BlogPostResponse>> findBlogPostById(int postId);
+	
+	public ResponseEntity<ResponseStructure<BlogPostResponse>>findByIdAndPosttype(int postId);
+	
 }
