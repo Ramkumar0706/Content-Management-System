@@ -13,6 +13,7 @@ import com.example.cms.dtoRequest.BlogRequest;
 import com.example.cms.dtoResponse.BlogResponse;
 import com.example.cms.dtoResponse.ContributerPanelResponse;
 import com.example.cms.dtoResponse.UserResponse;
+import com.example.cms.usermodel.ContributionPanel;
 import com.example.cms.userservice.BlogService;
 import com.example.cms.utility.ResponseStructure;
 
@@ -36,15 +37,15 @@ public class BlogController {
 		
 	}
 	@PutMapping("/blogs/{blogId}")
-	public ResponseEntity<ResponseStructure<BlogResponse>> updateBlogData(@RequestBody @Valid BlogRequest blogRequest,int blogId){
+	public ResponseEntity<ResponseStructure<BlogResponse>> updateBlogData(@RequestBody @Valid BlogRequest blogRequest,@PathVariable int  blogId){
 		return blogService.updateBlogData(blogRequest, blogId);
 	}
 	@PutMapping("/users/{userId}/contribution-panels/{panelId}")
-	public ResponseEntity<ResponseStructure<ContributerPanelResponse>>addContributor(int userId,int panelId){
+	public ResponseEntity<ResponseStructure<ContributionPanel>>addContributor(@PathVariable int  userId,@PathVariable int  panelId){
 		return blogService.addContributer(userId, panelId);
 	}
 	@DeleteMapping("/users/{userId}/contribution-panels/{panelId}")
-	public ResponseEntity<ResponseStructure<UserResponse>> removeUserFromContributionPanel(int userId,int panelId){
+	public ResponseEntity<ResponseStructure<UserResponse>> removeUserFromContributionPanel(@PathVariable int  userId,@PathVariable int  panelId){
 		return blogService. removeUserFromContributionPanel(userId,panelId);
 	}
 	

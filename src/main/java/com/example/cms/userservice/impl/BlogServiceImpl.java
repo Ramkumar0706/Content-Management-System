@@ -43,7 +43,7 @@ public class BlogServiceImpl implements BlogService{
 	private ContributerRepository contributerRepository;
 	private ResponseStructure<BlogResponse> response;
 	private ResponseStructure<UserResponse> userResponse;
-	private ResponseStructure<ContributerPanelResponse> contributerResponse;
+	private ResponseStructure<ContributionPanel> contributerResponse;
 
 	@Override
 	public ResponseEntity<ResponseStructure<BlogResponse>> blogRegister(BlogRequest blogRequest,int userId) {	
@@ -70,18 +70,21 @@ public class BlogServiceImpl implements BlogService{
 	}
 
 	@Override
-	public ResponseEntity<ResponseStructure<ContributerPanelResponse>>  addContributer(int userId,int panelId) {
+	public ResponseEntity<ResponseStructure<ContributionPanel>>  addContributer(int userId,int panelId) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		return userRepository.findByEmail(email).map(owner->{
+			System.out.println("ererrre");
 			return contributerRepository.findById(panelId).map(panel->{
 				if(!blogRepository.existsByUserAndContributerpanel(owner,panel))
 					throw new IllegalAccessRequestException("Failed to add contributor");
 				return userRepository.findById(userId).map(contributor->{
+					System.out.println("ererrre");
 					panel.getContributers().add(contributor);
-					contributerRepository.save(panel);
+					ContributionPanel save = contributerRepository.save(panel);
+					System.out.println("ererrre");
 					return ResponseEntity.ok(contributerResponse.setStatuscode(HttpStatus.OK.value())
 							.setMessage("contributor added successfully")
-							.setData(mapToContributerPanelResponse(panel.getContributers(),owner)));
+							.setData(save));
 				}).orElseThrow(()-> new UserNotFoundByIdException("Failed to add contributor"));
 			}).orElseThrow(()->new PanelNotFoundException("Failed to fetch panel"));
 		}).get();

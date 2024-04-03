@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,4 +32,7 @@ public class Blog {
 	@OneToOne
 	private ContributionPanel contributerpanel;
 	
+	
+	@OneToMany(mappedBy = "blog")
+	private List<BlogPost> blogPost =new ArrayList<>();
 }
