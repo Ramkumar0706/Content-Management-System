@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.cms.dtoRequest.BlogPostRequest;
 import com.example.cms.dtoResponse.BlogPostResponse;
+import com.example.cms.dtoResponse.PublishResponse;
 import com.example.cms.enums.PostType;
 import com.example.cms.exception.BlogNotFoundException;
 import com.example.cms.exception.BlogPostAlreadyExistByTitleException;
@@ -17,6 +18,7 @@ import com.example.cms.exception.IllegalAccessRequestException;
 import com.example.cms.exception.UserNotFoundByIdException;
 import com.example.cms.usermodel.Blog;
 import com.example.cms.usermodel.BlogPost;
+import com.example.cms.usermodel.Publish;
 import com.example.cms.userrepository.BlogPostRepository;
 import com.example.cms.userrepository.BlogRepository;
 import com.example.cms.userrepository.ContributerRepository;
@@ -114,6 +116,31 @@ public class BlogPostImpl implements BlogPostService{
 				.blogPost(blogPost.getPostType())
 				.build();
 	}
+	
+	public BlogPostResponse mapToBlogPostAndPublishResponse(BlogPost blogPost) {
+		return BlogPostResponse.builder()
+				.postId(blogPost.getPostId())
+				.title(blogPost.getTitile())
+				.subTitle(blogPost.getSutTitle())
+				.summary(blogPost.getSummary())
+				.createdAt(blogPost.getCreatedAt())
+				.lastModifiedAt(blogPost.getLastModifiedAt())
+				.createdBy(blogPost.getCreatedBy())
+				.lastModifiedBy(blogPost.getLastModifiedBy())
+				.blogPost(blogPost.getPostType())
+				.publishResponse(mapToBlogPostResponse(blogPost.getPublish()))
+				.build();
+	}
+	public PublishResponse mapToBlogPostResponse(Publish publish) {
+		return  PublishResponse.builder()
+		 .publishId(publish.getPublishId())
+		 .seoTitle(publish.getSeoTitle())
+		 .seoDescription(publish.getSeoDescription())
+		 .seoTopics(publish.getSeoTopics())
+		 .createdAt(publish.getCreatedAt())
+		 .build();
+		 
+	}
 
 	public boolean isValidUser(int blogId) {
 
@@ -127,6 +154,23 @@ public class BlogPostImpl implements BlogPostService{
 				}
 			}).orElseThrow(()-> new BlogNotFoundException("Failed to validate blog "));
 		}).orElseThrow(()-> new UserNotFoundByIdException("Failes to validate by id User"));
+	}
+
+	@Override
+	public ResponseEntity<ResponseStructure<BlogPostResponse>> findBlogPostById(int postId) {
+		return blogPostRepository.findById(postId).map(blogPost->{
+			return ResponseEntity.ok(blogPostResponse.setStatuscode(HttpStatus.OK.value())
+					.setMessage("the blog post draft is deleted successfullty")
+					.setData(mapToBlogPostAndPublishResponse(blogPost)));
+			
+		}).orElseThrow(()-> new BlogNotFoundException("blog post not found"));
+	}
+	@Override
+	public ResponseEntity<ResponseStructure<BlogPostResponse>> findByIdAndPosttype(int postId){
+		return blogPostRepository.findByPostIdAndPostType(postId,PostType.PUBLISHED).map(blogPost->ResponseEntity.ok(blogPostResponse
+				.setStatuscode(HttpStatus.FOUND.value())
+				.setData(mapToBlogPostAndPublishResponse(blogPost))
+				.setMessage("the blog post is published list"))).orElseThrow(()->new IllegalAccessRequestException("failed to fectch the blogPost"));
 	}
 
 

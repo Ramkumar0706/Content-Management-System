@@ -36,7 +36,7 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain  securityFilterChain(HttpSecurity http) throws Exception {
 		return http.csrf(csrf->csrf.disable())
-				.authorizeHttpRequests(arth->arth.requestMatchers("/users/register").permitAll().anyRequest().authenticated())
+				.authorizeHttpRequests(arth->arth.requestMatchers("/users/register","/blog-posts/{postId}/publishes").permitAll().anyRequest().authenticated())
 				.formLogin(Customizer.withDefaults()).build();
 	}
 

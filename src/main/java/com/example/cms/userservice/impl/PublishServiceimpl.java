@@ -10,7 +10,6 @@ import com.example.cms.dtoResponse.BlogPostResponse;
 import com.example.cms.dtoResponse.PublishResponse;
 import com.example.cms.enums.PostType;
 import com.example.cms.exception.BlogPostNotFoundByIdException;
-import com.example.cms.exception.InvalidPostStateException;
 import com.example.cms.exception.InvalidPostStatusException;
 import com.example.cms.usermodel.BlogPost;
 import com.example.cms.usermodel.Publish;
@@ -38,11 +37,12 @@ public class PublishServiceimpl  implements PublishService{
 				throw new IllegalArgumentException("failed to publish the blog post");
 			}
 			if(blogPost.getPostType()!=PostType.DRAFT&&blogPost.getPostType()!=null) {
-				throw new InvalidPostStateException("Post is not in DRAFT state"); 
+				throw new InvalidPostStatusException("Post is not in DRAFT state"); 
 			}
 			Publish publish = mapToPublishRequest(publishRequest);
 			publish.setBlogPost(blogPost);
 			blogPost.setPostType(PostType.PUBLISHED);
+			blogPost.setPublish(publish);
 			publishRepository.save(publish);
 			blogPostRepository.save(blogPost);
 			return ResponseEntity.ok(responseStructure.setStatuscode(HttpStatus.CREATED.value())
@@ -55,14 +55,14 @@ public class PublishServiceimpl  implements PublishService{
 	
 	
 	 PublishResponse mapToBlogPostResponse(Publish publish) {
-		 PublishResponse.builder()
+		return  PublishResponse.builder()
 		 .publishId(publish.getPublishId())
 		 .seoTitle(publish.getSeoTitle())
 		 .seoDescription(publish.getSeoDescription())
 		 .seoTopics(publish.getSeoTopics())
 		 .createdAt(publish.getCreatedAt())
 		 .build();
-		 return null;
+		 
 	}
 	public Publish mapToPublishRequest(PublishRequest publishRequest) {
 		Publish p=new Publish();

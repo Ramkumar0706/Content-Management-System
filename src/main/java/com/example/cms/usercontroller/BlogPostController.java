@@ -14,6 +14,9 @@ import com.example.cms.userservice.BlogPostService;
 import com.example.cms.utility.ResponseStructure;
 
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @AllArgsConstructor
@@ -36,4 +39,14 @@ public class BlogPostController {
 		return blogPostService.deleteBlogPost(postId);
 	}
 
+	@GetMapping("/blog-posts/{postId}")
+	public  ResponseEntity<ResponseStructure<BlogPostResponse>> findBlogPostById(@PathVariable int postId){
+		return blogPostService.findBlogPostById(postId);
+	}
+	@GetMapping("/blog-posts/{postId}/publishes")
+	public  ResponseEntity<ResponseStructure<BlogPostResponse>> findByIdAndPosttype(@PathVariable int postId){
+		return blogPostService.findByIdAndPosttype(postId);
+	}
+	
+	
 }

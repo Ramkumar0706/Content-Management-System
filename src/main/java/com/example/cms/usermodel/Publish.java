@@ -29,9 +29,7 @@ public class Publish {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int publishId;
-	@NotBlank
-	@NotNull
-	@NotEmpty
+	
 	private String seoTitle;
 	private String seoDescription;
 	private String[] seoTopics;

@@ -27,7 +27,7 @@ public class BlogController {
 	public ResponseEntity<ResponseStructure<BlogResponse>> registerBlog(@RequestBody @Valid BlogRequest blogRequest ,@PathVariable int userId){
 		return blogService.blogRegister(blogRequest,userId);																																				
 	}
-	@GetMapping(" /titles/{title}/blogs")
+	@GetMapping("/titles/{title}/blogs")
 	public ResponseEntity<Boolean> checkTitleExists(@PathVariable String title){
 		return blogService.checkTitleExists(title);
 	}
