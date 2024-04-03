@@ -27,7 +27,7 @@ public class BlogPostController {
 	}
 	
 	@PutMapping("/blog-posts/{postId}")
-	public ResponseEntity<ResponseStructure<BlogPostResponse>> updateDraft(@PathVariable int postId,@RequestBody BlogPostRequest  blogPostRequest){
+	public ResponseEntity<ResponseStructure<BlogPostResponse>> updateDraft(@RequestBody BlogPostRequest  blogPostRequest,@PathVariable int postId){
 		return blogPostService.updateDraft(postId,blogPostRequest);
 	}
 	

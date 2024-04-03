@@ -67,6 +67,7 @@ public class BlogPostImpl implements BlogPostService{
 			newBlogPost.setPostType(blogPost.getPostType());
 			newBlogPost.setCreatedAt(blogPost.getCreatedAt());
 			newBlogPost.setCreatedBy(blogPost.getCreatedBy());
+			newBlogPost.setBlog(blogPost.getBlog());
 			blogPostRepository.save(newBlogPost);
 			return ResponseEntity.ok(blogPostResponse.setStatuscode(HttpStatus.OK.value()).setMessage("the blog post draft is updated successfullty")
 					.setData(mapToBlogPostResponse(newBlogPost)));
