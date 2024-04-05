@@ -1,17 +1,11 @@
  package com.example.cms.userservice.impl;
 
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
 import org.springframework.stereotype.Service;
 
 import com.example.cms.dtoRequest.BlogRequest;
@@ -24,7 +18,6 @@ import com.example.cms.exception.IllegalAccessRequestException;
 import com.example.cms.exception.PanelNotFoundException;
 import com.example.cms.exception.TitleEmptyException;
 import com.example.cms.exception.UserNotFoundByIdException;
-import com.example.cms.security.CustomUserDetails;
 import com.example.cms.usermodel.Blog;
 import com.example.cms.usermodel.ContributionPanel;
 import com.example.cms.usermodel.User;

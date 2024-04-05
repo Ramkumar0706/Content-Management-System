@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.cms.dtoRequest.BlogRequest;
 import com.example.cms.dtoResponse.BlogResponse;
-import com.example.cms.dtoResponse.ContributerPanelResponse;
 import com.example.cms.dtoResponse.UserResponse;
 import com.example.cms.usermodel.ContributionPanel;
 import com.example.cms.userservice.BlogService;
@@ -23,6 +22,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class BlogController {
 	private BlogService blogService;
+	
 	@PostMapping("/users/{userId}/blogs")
 	public ResponseEntity<ResponseStructure<BlogResponse>> registerBlog(@RequestBody @Valid BlogRequest blogRequest ,@PathVariable int userId){
 		return blogService.blogRegister(blogRequest,userId);																																				

@@ -2,6 +2,8 @@ package com.example.cms.dtoRequest;
 
 
 
+import java.time.LocalDateTime;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +15,10 @@ public class BlogPostRequest {
 	private String title;
 	private String subTitile;
 	private String summary;
-	
+	private String createdBy;
+	private String lastModifiedBy;
+	private LocalDateTime createdAt;
+	private LocalDateTime lastModifiedAt;
 	
 
 }

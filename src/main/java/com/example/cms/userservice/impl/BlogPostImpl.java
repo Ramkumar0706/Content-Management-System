@@ -1,6 +1,5 @@
 package com.example.cms.userservice.impl;
 
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -100,6 +99,10 @@ public class BlogPostImpl implements BlogPostService{
 		blogPost.setTitile(blogPostRequest.getTitle());
 		blogPost.setSutTitle(blogPostRequest.getSubTitile());
 		blogPost.setSummary(blogPostRequest.getSummary());
+		blogPost.setCreatedAt(blogPostRequest.getCreatedAt());
+		blogPost.setCreatedBy(blogPostRequest.getCreatedBy());
+		blogPost.setLastModifiedAt(blogPostRequest.getLastModifiedAt());
+		blogPost.setLastModifiedBy(blogPostRequest.getLastModifiedBy());
 		return blogPost;
 	}
 
@@ -128,7 +131,9 @@ public class BlogPostImpl implements BlogPostService{
 				.createdBy(blogPost.getCreatedBy())
 				.lastModifiedBy(blogPost.getLastModifiedBy())
 				.blogPost(blogPost.getPostType())
-				.publishResponse(mapToBlogPostResponse(blogPost.getPublish()))
+				.publishResponse(blogPost.getPublish() != null ? 
+                        mapToBlogPostResponse(blogPost.getPublish()) : 
+                        null)
 				.build();
 	}
 	public PublishResponse mapToBlogPostResponse(Publish publish) {
@@ -172,6 +177,8 @@ public class BlogPostImpl implements BlogPostService{
 				.setData(mapToBlogPostAndPublishResponse(blogPost))
 				.setMessage("the blog post is published list"))).orElseThrow(()->new IllegalAccessRequestException("failed to fectch the blogPost"));
 	}
+	
+	
 
 
 }

@@ -1,5 +1,7 @@
 package com.example.cms.dtoRequest;
 
+import com.example.cms.usermodel.Schedule;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -17,4 +19,6 @@ public class PublishRequest {
 	private String seoTitle;
 	private String seoDescription;
 	private String[] seoTopics;
+	
+	private ScheduleRequest schedule;
 }

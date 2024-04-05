@@ -29,7 +29,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 public class BlogPost {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,17 +42,17 @@ public class BlogPost {
 	@Enumerated(EnumType.STRING)
 	private PostType postType;
 	
-	@CreatedDate
+	//@CreatedDate
 	@Column(updatable = false)
 	private LocalDateTime createdAt;
 	
-	@LastModifiedDate
+	//@LastModifiedDate
 	private LocalDateTime lastModifiedAt;
 	
-	@CreatedBy
+	//@CreatedBy
 	private String createdBy;
 	
-	@LastModifiedBy
+	//@LastModifiedBy
 	private String lastModifiedBy;
 	
 	@ManyToOne
