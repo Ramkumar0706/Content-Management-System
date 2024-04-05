@@ -10,8 +10,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.example.cms.enums.PostType;
-import com.example.cms.usermodel.BlogPost;
-import com.example.cms.userrepository.BlogPostRepository;
+import com.example.cms.model.BlogPost;
+import com.example.cms.repository.BlogPostRepository;
+
 import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Component
