@@ -5,11 +5,15 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.cms.usermodel.User;
+import com.example.cms.model.User;
 
 import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CustomUserDetails implements UserDetails {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private User user;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

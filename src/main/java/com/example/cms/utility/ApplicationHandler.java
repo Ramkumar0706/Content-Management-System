@@ -70,5 +70,10 @@ public class ApplicationHandler {
 		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"panel is not found by thie user or blog Id");	
 	}
 	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleTimeInvalidException(TimeInvalidException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Invalid Time");	
+	}
+	
 	
 }
