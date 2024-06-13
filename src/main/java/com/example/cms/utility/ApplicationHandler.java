@@ -28,8 +28,51 @@ public class ApplicationHandler {
 	@ExceptionHandler
 	public ResponseEntity<ErrorStructure<String>> handelerUserNotFoundtById(UserNotFoundByIdException ex)
 	{
-		return errorResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), "user is not found by Id");
+		return errorResponse(HttpStatus.NOT_FOUND, ex.getMessage(), "user is not found by Id");
 				
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleBlogNotFoundException(BlogNotFoundException ex){
+		return errorResponse(HttpStatus.NOT_FOUND,ex.getMessage(),"blog is not found by Id");
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleTitleEmptyException(TitleEmptyException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"blog title is empty ");
+	}
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleBlogTitleExistException(BlogTitleAlreadyExistException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"blog title is already in database");	
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleBlogPostAlreadyExistByTitleException(BlogPostAlreadyExistByTitleException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"blog post titile alresdy found ");	
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleBlogPostNotFoundByIdException(BlogPostNotFoundByIdException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"blog post not found by Id ");	
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleIllegalAccessRequestException(IllegalAccessRequestException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"illegal access request");	
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleInvalidPostStatusException(InvalidPostStatusException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"post is already in DRAFT state");	
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handlePanelNotFoundException(PanelNotFoundException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"panel is not found by thie user or blog Id");	
+	}
+	
+	@ExceptionHandler
+	public ResponseEntity<ErrorStructure<String>> handleTimeInvalidException(TimeInvalidException ex){
+		return errorResponse(HttpStatus.BAD_REQUEST,ex.getMessage(),"Invalid Time");	
 	}
 	
 	

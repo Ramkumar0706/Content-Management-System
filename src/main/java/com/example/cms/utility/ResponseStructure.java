@@ -3,6 +3,8 @@ package com.example.cms.utility;
 
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 
@@ -11,6 +13,15 @@ public class ResponseStructure<T> {
 	private int statuscode;
 	private String message;
 	private T data;
+	private List<T> lists;
+	
+	public List<T> getLists() {
+		return lists;
+	}
+	public ResponseStructure<T> setLists(List<T> lists) {
+		this.lists = lists;
+		return this;
+	}
 	public int getStatuscode() {
 		return statuscode;
 	}
